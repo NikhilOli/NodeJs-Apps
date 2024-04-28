@@ -1,12 +1,14 @@
-
-import dotenv from 'dotenv'
 import {connectDb, app} from './db/index.js';
+import express from 'express'
+import userRouter from './routes/users.routes.js';
 
 
-dotenv.config({path: './env'});
-
-
+app.use(express.json())
 connectDb()
+
+app.use("/", userRouter)
+
+
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
