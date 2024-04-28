@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         gender: {
             type: String,
         }
-})
+}, {versionKey: false})
 
 
 const User = mongoose.model('User', userSchema);

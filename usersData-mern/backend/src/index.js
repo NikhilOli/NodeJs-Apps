@@ -6,7 +6,7 @@ import userRouter from './routes/users.routes.js';
 app.use(express.json())
 connectDb()
 
-app.use("/", userRouter)
+app.use("/users", userRouter)
 
 
 app.get('/', (req, res) => {

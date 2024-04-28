@@ -8,7 +8,7 @@ import User from '../models/users.models.js';
 const router = Router();
 
 
-router.post("/", async (req, res) => {
+router.post("/addUser", async (req, res) => {
     const {name, email, age, gender} = req.body;
 
     try {
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.get("/", async (req, res) => {
+router.get("/showUsers", async (req, res) => {
     try {
         const allUsers = await User.find();
         res.status(200).json(allUsers);
