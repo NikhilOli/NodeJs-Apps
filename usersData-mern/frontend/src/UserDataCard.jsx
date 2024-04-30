@@ -1,22 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserDataCard = () => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
+
     const getUsers = async () => {
-        const response = await fetch("http://localhost:4000/users/showUsers")
+        const response = await fetch("http://localhost:4000/users/showUsers");
         const result = await response.json();
-        console.log(result);
-        setUsers(result)
-    }
+        setUsers(result);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:4000/users/deleteUser/${id}`, {
+                method: "DELETE"
+            });
+            if (response.ok) {
+                const result = await response.json();
+                getUsers();
+                toast.success("User deleted successfully!");
+            } else {
+                const error = await response.json();
+                toast.error(`Error: ${error.message}`);
+            }
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            toast.error("An error occurred while deleting the user.");
+        }
+    };
 
     useEffect(() => {
-        getUsers()
-    }, [])
+        getUsers();
+    }, []);
 
     return (
+        <>
+            <ToastContainer />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 mx-6">
             {users.map((user) => (
-                <div key={user.age} className="bg-white p-4 shadow-md rounded-md">
+                <div key={user._id} className="bg-white p-4 shadow-md rounded-md">
                     <div>
                         <span className="font-bold">Name:</span> {user.name}
                     </div>
@@ -33,13 +56,14 @@ const UserDataCard = () => {
                         <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded mr-2">
                             Update
                         </button>
-                        <button className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
+                        <button onClick={() => handleDelete(user._id)} className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
                             Delete
                         </button>
                     </div>
                 </div>
             ))}
         </div>
+        </>
     );
 };
 

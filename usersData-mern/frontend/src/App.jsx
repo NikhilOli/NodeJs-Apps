@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [name, setName] = useState("")
@@ -8,29 +10,33 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const addUser = { name, email, age, gender }
-    const response = await (fetch("http://localhost:4000/users/addUser", {
-      method: 'POST',
-      body: JSON.stringify(addUser),
-      headers: {
-        "Content-Type": "application/json"
+    try {
+      const addUser = { name, email, age, gender };
+      const response = await fetch("http://localhost:4000/users/addUser", {
+        method: 'POST',
+        body: JSON.stringify(addUser),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(`Error: ${result.error}`);
+      } else {
+        toast.success("User created successfully!");
+        setName("");
+        setEmail("");
+        setAge("");
+        setGender("");
       }
-    }))
-    const result = await response.json();
-    if (!response.ok) {
-      console.log("Error", result.error);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      toast.error("An error occurred while creating the user.");
     }
-    if (response.ok) {
-      console.log(result);
-      setName("")
-      setEmail("")
-      setAge("")
-      setGender("")
-    }
-
-  }
+  };
   return (
     <>
+      <ToastContainer />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">User Management</h1>
         <div className="flex justify-between items-center mb-6">

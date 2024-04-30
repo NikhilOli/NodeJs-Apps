@@ -1,14 +1,14 @@
-import mongoose from 'mongoose'
-import express from 'express'
+
 import { Router } from 'express';
 import User from '../models/users.models.js';
+import validateUser from '../middlewares/validation.middlewares.js';
 
 
 
 const router = Router();
 
 
-router.post("/addUser", async (req, res) => {
+router.post("/addUser", validateUser, async (req, res) => {
     const {name, email, age, gender} = req.body;
 
     try {
