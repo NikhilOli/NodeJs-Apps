@@ -27,11 +27,11 @@ router.post("/addUser", async (req, res) => {
 router.get("/showUsers", async (req, res) => {
     try {
         const allUsers = await User.find();
-        let userHTML = "<h1>All Users</h1>";
-        allUsers.forEach(user => {
-            userHTML += `<li>${user.name}</li>`;
-        });
-        res.status(200).send(userHTML);
+        // let userHTML = "<h1>All Users</h1>";
+        // allUsers.forEach(user => {
+        //     userHTML += `<li>${user.name}</li>`;
+        // });
+        res.status(200).json(allUsers);
     } catch (error) {
         console.log("Error in fetching user", error);
 
