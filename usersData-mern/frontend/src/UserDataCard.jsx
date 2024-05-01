@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserDataCard = () => {
     const [users, setUsers] = useState([]);
-
     const getUsers = async () => {
         const response = await fetch("http://localhost:4000/users/showUsers");
         const result = await response.json();
@@ -30,6 +30,18 @@ const UserDataCard = () => {
         }
     };
 
+    // const handleUpdate = async (id) => {
+    //     try {
+    //         const response = await fetch(`http://localhost:4000/users/deleteUser/${id}`, {
+    //             method: "PATCH",
+    //             body: 
+    //         });
+    //     } catch (error) {
+    //         console.error("Error updating user:", error);
+    //         toast.error("An error occurred while updating the user.");
+    //     }
+    // }
+
     useEffect(() => {
         getUsers();
     }, []);
@@ -53,9 +65,9 @@ const UserDataCard = () => {
                         <span className="font-bold">Gender:</span> {user.gender}
                     </div>
                     <div className="mt-4">
-                        <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded mr-2">
+                        <Link to={`/${user._id}`} onClick={() => handleUpdate(user._id)} className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded mr-2">
                             Update
-                        </button>
+                        </Link>
                         <button onClick={() => handleDelete(user._id)} className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
                             Delete
                         </button>

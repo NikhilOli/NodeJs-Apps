@@ -27,16 +27,27 @@ router.post("/addUser", validateUser, async (req, res) => {
 router.get("/showUsers", async (req, res) => {
     try {
         const allUsers = await User.find();
-        // let userHTML = "<h1>All Users</h1>";
-        // allUsers.forEach(user => {
-        //     userHTML += `<li>${user.name}</li>`;
-        // });
         res.status(200).json(allUsers);
     } catch (error) {
         console.log("Error in fetching user", error);
 
     }
 })
+
+router.get("/getUser/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        console.log("Error in fetching user", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 router.delete("/deleteUser/:id", async (req, res) => {
     const { id } = req.params;
@@ -54,16 +65,16 @@ router.patch("/updateUser/:id", async (req, res) => {
     const { id } = req.params;
     const {name, email, age, gender} = req.body;
 
-    console.log(id);
     try {
-        const updateUser = await User.findOneAndDelete(id, req.body, {new: true});
+        const updateUser = await User.findByIdAndUpdate(id, req.body, { new: true });
         console.log("User Updated successfully");
         res.status(200).json(updateUser);
     } catch (error) {
-        console.log("Error in fetching user", error);
-
+        console.log("Error in updating user", error);
+        res.status(500).json({ message: "Internal server error" });
     }
 })
+
 
 
 
