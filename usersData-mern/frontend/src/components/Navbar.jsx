@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdLogin, MdLogout } from "react-icons/md";
 
 
 const Navbar = () => {
@@ -15,6 +15,7 @@ const Navbar = () => {
                     <div className='text-white flex justify-center items-center gap-2'>
                         <h4>Logout</h4>
                         <MdDarkMode size={24} />
+                        <Link to="/login"><MdLogout size={24} /></Link>
                     </div>
                 </div>
             </div>
