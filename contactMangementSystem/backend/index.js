@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { connectDb } from './src/db/connectDb.js';
 import { router } from './src/routes/user.routes.js';
+import { contactRouter } from './src/routes/contact.routes.js';
 
 
 
@@ -23,3 +24,4 @@ connectDb().then(() => {
 }).catch((err) => console.log("Error connecting database", err));
 
 app.use("/", router)
+app.use("/dashboard", contactRouter)

@@ -45,9 +45,9 @@ const loginUser = async (req, res) => {
         if (!verifyPassword) {
             return res.status(400).json({message: "Password mismatch"})
         }
-        const token = jwt.sign({id: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: "15s"})
+        const token = jwt.sign({id: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: "1d"})
 
-        res.cookie("token", token, {maxAge: 15000})
+        res.cookie("token", token, {maxAge: 86000000})
 
         res.status(200).json({message: "Login successful", token})
 
