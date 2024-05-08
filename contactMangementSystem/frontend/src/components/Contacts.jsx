@@ -39,7 +39,7 @@ const Contacts = () => {
       cell: (row) => (
         <>
           <button className="text-blue-500 hover:text-blue-700 mr-2">
-            <Link to={`/dashboard/edit-contact/:${row._id}`}>
+            <Link to={`/dashboard/edit-contact/${row._id}`}>
             <FiEdit size={18} />
             </Link>
           </button>
@@ -80,7 +80,7 @@ const Contacts = () => {
           console.error("Response data:", error.response.data);
         }
       });
-  }, []);
+  }, []);   
 
 
   return (
