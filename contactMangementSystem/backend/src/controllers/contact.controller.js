@@ -57,4 +57,22 @@ const updateContact = async (req, res) => {
         return res.status(500).json({message: error})
     }
 }
-export {addContact, contacts, contact, updateContact};
+
+const deleteContact = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const contact = await Contact.findOne({_id: id})
+        if (!contact) {
+            return res.status(404).json({message: "No contact exists"})
+        }
+        await Contact.findByIdAndDelete({_id: id})
+        const updatedContacts = await Contact.find({postedBy: req.user.id})
+
+        return res.status(200).json({message: "Contact deleted successfully", contacts: updatedContacts})
+    } catch (error) {
+        console.log("Error deleting contact", error);
+        return res.status(500).json({message: error})
+    }
+}
+
+export {addContact, contacts, contact, updateContact, deleteContact};

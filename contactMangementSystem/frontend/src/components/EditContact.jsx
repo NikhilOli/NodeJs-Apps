@@ -7,6 +7,7 @@ import { FaUserPlus, FaRegAddressBook } from "react-icons/fa6";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 
 
+
 const EditContact = () => {
     const navigate = useNavigate()
     const [contactData, setContactData] = useState({

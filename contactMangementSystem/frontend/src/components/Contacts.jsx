@@ -3,15 +3,60 @@ import axios from 'axios';
 import DataTable from 'react-data-table-component'
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
-
-
-
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { Link } from 'react-router-dom';
 
 
+const MySwal = withReactContent(Swal)
 
 const Contacts = () => {
+
   const [contacts, setContacts] = useState([]);
+
+  const deleteRecord = (id) => {
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+        if (!token) {
+            console.log("Token not found. Redirecting to login page");
+            return;
+        }
+        axios.delete(`http://localhost:3000/dashboard/contact/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token.split('=')[1]}` 
+          }
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setContacts(res.data.contacts);
+            MySwal.fire({
+              title: "Deleted!",
+              text: "Your contact has been deleted.",
+              icon: "success"
+            });
+          } else {
+            console.error("Unexpected status code:", res.status);
+          }
+        })
+        .catch(error => {
+          console.error("Error deleting contact:", error);
+          if (error.response) {
+            console.error("Response data:", error.response.data);
+          }
+        });
+      }
+    });
+  }
+  
 
   const columns = [
     {
@@ -44,7 +89,7 @@ const Contacts = () => {
             </Link>
           </button>
           <button className="text-red-500 hover:text-red-700">
-            <RiDeleteBin5Line size={18} />
+            <RiDeleteBin5Line size={18} onClick={() => deleteRecord(row._id)} />
           </button>
         </>
       ),
