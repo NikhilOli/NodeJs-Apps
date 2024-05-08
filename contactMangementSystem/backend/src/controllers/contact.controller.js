@@ -9,7 +9,6 @@ const addContact = async (req, res) => {
         if(existingContact){
             return res.json({message: "Contact already exists"})
         }
-        console.log(req.user.id);
         const newContact = Contact.create({
             username,
             email,
@@ -24,4 +23,16 @@ const addContact = async (req, res) => {
     }
 }
 
-export {addContact};
+
+const contacts = async (req, res) => {
+    try {
+        const contacts = await Contact.find({postedBy: req.user.id})
+
+        return res.status(200).json({message: "Successfully fetched contacts", contacts})
+    } catch (error) {
+        console.log("Error showing contacts", error);
+        return res.status(500).json({message: error})
+    }
+}
+
+export {addContact, contacts};

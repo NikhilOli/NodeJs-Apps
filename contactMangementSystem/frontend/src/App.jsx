@@ -9,7 +9,7 @@ import Profile from "./components/Profile"
 import AddContact from "./components/AddContact"
 import Contacts from "./components/Contacts"
 import Logout from "./components/Logout"
-
+import EditContact from "./components/EditContact"
 
 function App() {
 
@@ -28,8 +28,8 @@ function App() {
                     <Route path='/dashboard/add-contact' element={<AddContact />} />
                     <Route path='/dashboard/contacts' element={<Contacts />} />
                     <Route path='/dashboard/logout' element={<Logout />} />
+                    <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
           </Route>
-          <Route path="/dashboard/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>
