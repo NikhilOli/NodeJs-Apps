@@ -10,28 +10,34 @@ import AddContact from "./components/AddContact"
 import Contacts from "./components/Contacts"
 import Logout from "./components/Logout"
 import EditContact from "./components/EditContact"
+import { createContext, useState } from "react"
 
+
+export const UserContext = createContext(null)
 function App() {
 
+  const [user, setUser] = useState()
   return (
     <>
-      <BrowserRouter>
-      <div><Toaster
-      /></div>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-                    <Route path='/dashboard/profile' element={<Profile />} />
-                    <Route path='/dashboard/add-contact' element={<AddContact />} />
-                    <Route path='/dashboard/contacts' element={<Contacts />} />
-                    <Route path='/dashboard/logout' element={<Logout />} />
-                    <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <UserContext.Provider value={{user, setUser}}>
+        <BrowserRouter>
+          <div><Toaster
+          /></div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path='/dashboard/profile' element={<Profile />} />
+              <Route path='/dashboard/add-contact' element={<AddContact />} />
+              <Route path='/dashboard/contacts' element={<Contacts />} />
+              <Route path='/dashboard/logout' element={<Logout />} />
+              <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
     </>
   )
 }

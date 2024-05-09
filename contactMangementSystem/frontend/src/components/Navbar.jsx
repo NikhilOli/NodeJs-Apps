@@ -1,9 +1,11 @@
 // Navbar.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { user } = useContext(UserContext)
 
     return (
         <nav className="bg-gray-900 text-white p-4">
@@ -13,11 +15,20 @@ const Navbar = () => {
                         <Link to="/" className="text-white text-xl font-bold">Contact Management System</Link>
                     </div>
                     <div className="hidden md:flex items-center">
-                        <a href="#" className="mr-4 hover:text-gray-300">Home</a>
+                        <Link to="/" className="mr-4 hover:text-gray-300">Home</Link>
                         <a href="#" className="mr-4 hover:text-gray-300">About</a>
                         <a href="#" className="hover:text-gray-300">Contact</a>
-                        <Link to="/register" className="ml-4 bg-white text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-100">Register</Link>
-                        <Link to="/login" className="ml-4 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Login</Link>
+                        {
+                            user ? <>
+                                <Link to="#" className="ml-4 bg-white text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-100">{user.name}</Link>
+                                <Link to="/logout" className="ml-4 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Logout</Link>
+                                </>
+                                :
+                                <>
+                                    <Link to="/register" className="ml-4 bg-white text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-100">Register</Link>
+                                    <Link to="/login" className="ml-4 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Login</Link>
+                                </>
+                        }
                     </div>
                     <div className="md:hidden flex items-center">
                         <button

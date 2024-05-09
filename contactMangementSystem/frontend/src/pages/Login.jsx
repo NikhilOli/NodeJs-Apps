@@ -1,19 +1,21 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { UserContext } from '../App';
 
 
 const Login = () => {
+    const {user, setUser} = useContext(UserContext)
     const navigate = useNavigate()
-    const [user, setUser] = useState({
+    const [userData, setUserData] = useState({
         email: '',
         password: ''
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUser(prevState => ({
+        setUserData(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -22,13 +24,13 @@ const Login = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!user.email || !user.password) {
+        if (!userData.email || !userData.password) {
             return;
         }
         try {
             const res = await axios.post("http://localhost:3000/login", {
-                email: user.email,
-                password: user.password
+                email: userData.email,
+                password: userData.password
             })
             if (res.status === 200) {
                 
@@ -43,6 +45,8 @@ const Login = () => {
                         },
                     }
                 );
+                localStorage.setItem("token", res.data.token)
+                setUser(res.data.userData)
                 navigate("/dashboard")
                 return;
             } else return  console.log('Login failed:', res.data.message);
