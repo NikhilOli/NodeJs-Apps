@@ -16,8 +16,8 @@ const Navbar = () => {
                     </div>
                     <div className="hidden md:flex items-center">
                         <Link to="/" className="mr-4 hover:text-gray-300">Home</Link>
-                        <a href="#" className="mr-4 hover:text-gray-300">About</a>
-                        <a href="#" className="hover:text-gray-300">Contact</a>
+                        <Link to="/dashboard/contacts" className="mr-4 hover:text-gray-300">About</Link>
+                        <Link to="/dashboard/contacts" className="hover:text-gray-300">Contacts</Link>
                         {
                             user ? <>
                                 <Link to="#" className="ml-4 bg-white text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-100">{user.name}</Link>

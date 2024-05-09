@@ -26,14 +26,20 @@ const addContact = async (req, res) => {
 
 const contacts = async (req, res) => {
     try {
-        const contacts = await Contact.find({postedBy: req.user.id})
+        const userContacts = await Contact.find({ postedBy: req.user.id });
+        const contactCount = userContacts.length;
 
-        return res.status(200).json({message: "Successfully fetched contacts", contacts})
+        return res.status(200).json({
+            message: "Successfully fetched contacts",
+            contacts: userContacts,
+            contactCount: contactCount
+        });
     } catch (error) {
         console.log("Error showing contacts", error);
-        return res.status(500).json({message: error})
+        return res.status(500).json({ message: error });
     }
 }
+
 
 const contact = async (req, res) => {
     try {

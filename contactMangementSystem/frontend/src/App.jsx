@@ -11,6 +11,8 @@ import Contacts from "./components/Contacts"
 import Logout from "./components/Logout"
 import EditContact from "./components/EditContact"
 import { createContext, useState } from "react"
+import ProtectedRoute from "./components/ProtectedRoute"
+import PageNotFound from "./pages/PageNotFound"
 
 
 export const UserContext = createContext(null)
@@ -28,13 +30,15 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
               <Route path='/dashboard/profile' element={<Profile />} />
               <Route path='/dashboard/add-contact' element={<AddContact />} />
               <Route path='/dashboard/contacts' element={<Contacts />} />
               <Route path='/dashboard/logout' element={<Logout />} />
               <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
             </Route>
+            <Route path='/logout' element={<Logout />} />
+            <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

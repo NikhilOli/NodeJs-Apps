@@ -103,13 +103,12 @@ const Contacts = () => {
     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     if (!token) {
       console.log("Token not found. Redirecting to login page");
-      // Redirect to login page or handle unauthorized access
       return;
     }
 
     axios.get("http://localhost:3000/dashboard/contacts", {
       headers: {
-        Authorization: `Bearer ${token.split('=')[1]}` // Send token in authorization header
+        Authorization: `Bearer ${token.split('=')[1]}` 
       }
     })
       .then((res) => {
