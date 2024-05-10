@@ -17,7 +17,7 @@ const Profile = () => {
           console.log("Token not found. Redirecting to login page");
           return;
         }
-        const response = await axios.get('https://contactms-backend.vercel.app/dashboard/contacts', {
+        const response = await axios.get('https://contactms-backend.onrender.com/dashboard/contacts', {
           headers: {
             Authorization: `Bearer ${token.split('=')[1]}` // Send token in authorization header
           }
