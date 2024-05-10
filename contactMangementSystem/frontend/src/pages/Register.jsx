@@ -28,7 +28,7 @@ const Register = () => {
             return;
         }
         try {
-            const res = await axios.post("https://contactms-backend.onrender.com/register", {
+            const res = await axios.post("https://contactms-backend.vercel.app/register", {
                 name: user.name,
                 email: user.email,
                 password: user.password
