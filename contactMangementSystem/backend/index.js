@@ -10,7 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: "https://contactms.vercel.app",
+    origin: ["https://contactms.vercel.app"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
 }))
