@@ -33,7 +33,7 @@ const AddContact = () => {
       return;
     }
     
-    const res = await axios.post("https://contactms-backend.onrender.com/dashboard/add-contact", {
+    const res = await axios.post("https://contactms-backend.vercel.app/dashboard/add-contact", {
       username: contactData.username,
       email: contactData.email,
       phone: contactData.phone,
