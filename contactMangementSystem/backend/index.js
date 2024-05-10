@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 connectDb().then(() => {
     app.listen(process.env.PORT, () => {
-        console.log(`Server started at port ${process.env.PORT}`);
+        console.log(`Server started at port ${process.env.PORT},`);
     })
 }).catch((err) => console.log("Error connecting database", err));
 
