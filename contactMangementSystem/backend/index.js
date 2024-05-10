@@ -6,13 +6,11 @@ import { connectDb } from './src/db/connectDb.js';
 import { router } from './src/routes/user.routes.js';
 import { contactRouter } from './src/routes/contact.routes.js';
 
-
-
 const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: ["https://contactms.vercel.app"],
+    origin: "https://contactms.vercel.app",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
 }))
