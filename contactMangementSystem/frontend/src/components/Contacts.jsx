@@ -106,7 +106,7 @@ const Contacts = () => {
       return;
     }
 
-    axios.get("http://localhost:3000/dashboard/contacts", {
+    axios.get("https://contactms-backend.vercel.app/dashboard/contacts", {
       headers: {
         Authorization: `Bearer ${token.split('=')[1]}` 
       }

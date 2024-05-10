@@ -31,13 +31,12 @@ const EditContact = () => {
     useEffect(() => {
         const token = document.cookie.split('; ').find(row => row.startsWith('token='));
         if (!token) {
-            console.log("Token not found. Redirecting to login page");
-            // Redirect to login page or handle unauthorized access
+            res.status(401).json({message:"Token not found. Redirecting to login page"});
             return;
         }
-        axios.get(`http://localhost:3000/dashboard/contacts/${id}`, {
+        axios.get(`https://contactms-backend.vercel.app/dashboard/contacts/${id}`, {
             headers: {
-                Authorization: `Bearer ${token.split('=')[1]}` // Send token in authorization header
+                Authorization: `Bearer ${token.split('=')[1]}` 
             }
         })
             .then((res) => {

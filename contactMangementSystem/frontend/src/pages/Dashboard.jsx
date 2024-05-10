@@ -4,9 +4,6 @@ import { CgLogOut, CgProfile } from "react-icons/cg";
 import { RiContactsBook3Fill, RiContactsFill } from "react-icons/ri";
 import { UserContext } from '../App';
 
-
-
-
 const Dashboard = () => {
     const { user } = useContext(UserContext);
     const [token, setToken] = useState(null);
