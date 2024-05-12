@@ -12,7 +12,7 @@ const Profile = () => {
     // Fetch the number of contacts created by the user
     const fetchContactCount = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
         console.log(token);
         if (!token) {
           console.log("Token not found. Redirecting to login page");
