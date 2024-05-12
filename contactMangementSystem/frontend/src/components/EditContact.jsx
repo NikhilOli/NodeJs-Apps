@@ -29,14 +29,14 @@ const EditContact = () => {
 
     const {id} = useParams()
     useEffect(() => {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
         if (!token) {
             res.status(401).json({message:"Token not found. Redirecting to login page"});
             return;
         }
         axios.get(`https://contactms-backend.onrender.com/dashboard/contacts/${id}`, {
             headers: {
-                Authorization: `Bearer ${token.split('=')[1]}` 
+                Authorization: `Bearer ${token}` 
             }
         })
             .then((res) => {

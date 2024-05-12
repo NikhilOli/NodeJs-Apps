@@ -20,7 +20,7 @@ const Profile = () => {
         }
         const response = await axios.get('https://contactms-backend.onrender.com/dashboard/contacts', {
           headers: {
-            Authorization: `Bearer ${token.split('=')[1]}` // Send token in authorization header
+            Authorization: `Bearer ${token}` // Send token in authorization header
           }
         });
         setContactCount(response.data.contactCount);
