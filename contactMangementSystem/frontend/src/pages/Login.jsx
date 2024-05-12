@@ -35,7 +35,6 @@ const Login = () => {
             })
             if (res.status === 200) {
                 
-                const token = res.data.token
                 toast('Login successful!',
                     {
                         icon: '✅',
@@ -48,7 +47,7 @@ const Login = () => {
                 );
                 localStorage.setItem("token", res.data.token)
                 setUser(res.data.userData)
-                navigate("/dashboard/profile")
+                navigate("/dashboard/add-contact")
                 return;
             } else return  console.log('Login failed:', res.data.message);
         } catch (error) {
