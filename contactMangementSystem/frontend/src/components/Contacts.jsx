@@ -101,10 +101,10 @@ const Contacts = () => {
   axios.defaults.withCredentials = true
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    if (!token) {
-      console.log("Token not found. Redirecting to login page");
-      return;
-    }
+    // if (!token) {
+    //   console.log("Token not found. Redirecting to login page");
+    //   return;
+    // }
 
     axios.get("https://contactms-backend.onrender.com/dashboard/contacts", {
       headers: {

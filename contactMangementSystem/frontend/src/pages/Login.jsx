@@ -47,7 +47,7 @@ const Login = () => {
                 );
                 localStorage.setItem("token", res.data.token)
                 setUser(res.data.userData)
-                navigate("/dashboard/add-contact")
+                navigate("/dashboard/profile")
                 return;
             } else return  console.log('Login failed:', res.data.message);
         } catch (error) {
