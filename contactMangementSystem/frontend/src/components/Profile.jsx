@@ -13,6 +13,7 @@ const Profile = () => {
     const fetchContactCount = async () => {
       try {
         const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+        console.log(token);
         if (!token) {
           console.log("Token not found. Redirecting to login page");
           return;
