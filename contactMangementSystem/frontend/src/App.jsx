@@ -21,7 +21,7 @@ function App() {
   const [user, setUser] = useState()
   return (
     <>
-      <UserContext.Provider value={{user, setUser}}>
+      <UserContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <div><Toaster
           /></div>
@@ -30,12 +30,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
-              <Route path='/dashboard/profile' element={<Profile />} />
-              <Route path='/dashboard/add-contact' element={<AddContact />} />
-              <Route path='/dashboard/contacts' element={<Contacts />} />
-              <Route path='/dashboard/logout' element={<Logout />} />
-              <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />}>
+                <Route path='/dashboard/profile' element={<Profile />} />
+                <Route path='/dashboard/add-contact' element={<AddContact />} />
+                <Route path='/dashboard/contacts' element={<Contacts />} />
+                <Route path='/dashboard/logout' element={<Logout />} />
+                <Route path='/dashboard/edit-contact/:id' element={<EditContact />} />
+              </Route>
             </Route>
             <Route path='/logout' element={<Logout />} />
             <Route path='*' element={<PageNotFound />} />
