@@ -30,7 +30,7 @@ const Contacts = () => {
             console.log("Token not found. Redirecting to login page");
             return;
         }
-        axios.delete(`http://localhost:3000/dashboard/contact/${id}`, {
+        axios.delete(`https://contactms-backend.onrender.com/dashboard/contact/${id}`, {
           headers: {
             Authorization: `Bearer ${token.split('=')[1]}` 
           }
@@ -101,12 +101,12 @@ const Contacts = () => {
   axios.defaults.withCredentials = true
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    // if (!token) {
-    //   console.log("Token not found. Redirecting to login page");
-    //   return;
-    // }
+    if (!token) {
+      console.log("Token not found. Redirecting to login page");
+      return;
+    }
 
-    axios.get("https://contactms-backend.onrender.com/dashboard/contacts", {
+    axios.get("http://localhost:3000/dashboard/contacts", {
       headers: {
         Authorization: `Bearer ${token}` 
       }

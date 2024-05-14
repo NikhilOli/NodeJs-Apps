@@ -4,10 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { UserContext } from '../App';
 
-
 const Login = () => {
-    const {user, setUser} = useContext(UserContext)
-    const navigate = useNavigate()
+    const { setUser } = useContext(UserContext);
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: '',
         password: ''
@@ -21,37 +20,37 @@ const Login = () => {
         }));
     };
 
-    axios.defaults.withCredentials = true
+    axios.defaults.withCredentials = true;
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!userData.email || !userData.password) {
-            toast.error("Error", "Email or password mismatch" )
+            toast.error("Email or password mismatch");
             return;
         }
         try {
             const res = await axios.post("https://contactms-backend.onrender.com/login", {
                 email: userData.email,
                 password: userData.password
-            })
+            });
             if (res.status === 200) {
-                
-                toast('Login successful!',
-                    {
-                        icon: '✅',
-                        style: {
-                            borderRadius: '10px',
-                            background: '#333',
-                            color: '#fff',
-                        },
-                    }
-                );
-                localStorage.setItem("token", res.data.token)
-                setUser(res.data.userData)
-                navigate("/dashboard/profile")
-                return;
-            } else return  console.log('Login failed:', res.data.message);
+                toast('Login successful!', {
+                    icon: '✅',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                });
+                localStorage.setItem("token", res.data.token);
+                setUser(res.data.userData);
+                navigate("/dashboard/profile");
+            }
+            if (res.status === 400) {
+                toast.error(res.data.message);
+            }
         } catch (error) {
-            toast.error("Error", error  )
+            console.log("Error logging in:", error);
+            toast.error("Error logging in");
         }
     };
 

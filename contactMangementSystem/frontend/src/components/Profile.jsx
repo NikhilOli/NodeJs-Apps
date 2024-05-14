@@ -13,11 +13,10 @@ const Profile = () => {
     const fetchContactCount = async () => {
       try {
         const token = localStorage.getItem('token'); // Retrieve token from localStorage
-        console.log(token);
-        // if (!token) {
-        //   console.log("Token not found. Redirecting to login page");
-        //   return;
-        // }
+        if (!token) {
+          console.log("Token not found. Redirecting to login page");
+          return;
+        }
         const response = await axios.get('https://contactms-backend.onrender.com/dashboard/contacts', {
           headers: {
             Authorization: `Bearer ${token}` // Send token in authorization header

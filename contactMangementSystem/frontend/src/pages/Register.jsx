@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-import axios from 'axios'
+import axios from 'axios';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -11,6 +11,7 @@ const Register = () => {
         email: '',
         password: ''
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,11 +21,15 @@ const Register = () => {
         }));
     };
 
-    axios.defaults.withCredentials = true
+    axios.defaults.withCredentials = true;
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!user.name || !user.email || !user.password) {
+        if (!user.name || !user.email || !user.password ) {
             console.log('Please fill in all the fields.');
+            return;
+        }
+        if (!user.password < 6) {
+            setErrorMessage('Password should be at least 6 characters long.');
             return;
         }
         try {
@@ -32,7 +37,7 @@ const Register = () => {
                 name: user.name,
                 email: user.email,
                 password: user.password
-            })
+            });
             if (res.status === 201) {
                 toast('Registration successful!',
                     {
@@ -44,14 +49,14 @@ const Register = () => {
                         },
                     }
                 );
-                navigate("/login")
+                navigate("/login");
             } else {
                 console.log('Registration failed:', res.data.message);
-                // Show error message to the user
+                setErrorMessage(res.data.message);
             }
-            
         } catch (error) {
             console.log("Error registering user in frontend", error);
+            setErrorMessage('Error registering user');
         }
     };
 
@@ -83,6 +88,9 @@ const Register = () => {
                             Register
                         </button>
                     </div>
+                    {errorMessage && (
+                        <div className="text-red-500 text-center">{errorMessage}</div>
+                    )}
                 </form>
                 <div className="mt-4 text-center">
                     <p className="text-sm text-gray-300">Already registered? <Link to="/login" className="font-medium text-indigo-300 hover:text-indigo-200">Login here</Link></p>
