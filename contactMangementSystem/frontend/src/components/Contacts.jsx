@@ -30,7 +30,7 @@ const Contacts = () => {
             console.log("Token not found. Redirecting to login page");
             return;
         }
-        axios.delete(`https://contactms-backend.onrender.com/contact/${id}`, {
+        axios.delete(`https://contactms-backend.vercel.app/contact/${id}`, {
           headers: {
             Authorization: `Bearer ${token.split('=')[1]}` 
           }
