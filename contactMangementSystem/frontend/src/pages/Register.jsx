@@ -28,12 +28,12 @@ const Register = () => {
             console.log('Please fill in all the fields.');
             return;
         }
-        if (!user.password < 6) {
+        if (user.password.length < 6) {
             setErrorMessage('Password should be at least 6 characters long.');
             return;
         }
         try {
-            const res = await axios.post("https://contactms-backend.vercel.app/register", {
+            const res = await axios.post("https://contactms-backend.onrender.com/register", {
                 name: user.name,
                 email: user.email,
                 password: user.password
