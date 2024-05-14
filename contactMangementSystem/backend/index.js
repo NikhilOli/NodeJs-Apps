@@ -9,7 +9,7 @@ import { contactRouter } from './src/routes/contact.routes.js';
 const app = express();
 
 app.use(cors({
-    origin: ["https://contactms.vercel.app"],
+    origin: ["https://contactmanagement-system.netlify.app"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
 }))
