@@ -34,7 +34,7 @@ const EditContact = () => {
             res.status(401).json({message:"Token not found. Redirecting to login page"});
             return;
         }
-        axios.get(`https://contactms-backend.vercel.app/contacts/${id}`, {
+        axios.get(`http://localhost:3000/contacts/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}` 
             }
