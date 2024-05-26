@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 
 const ProtectedRoute = ({ children }) => {
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-    return token ? children : <Navigate to="/login" replace />
+    const { user } = useContext(UserContext);
+    return user ? children : <Navigate to="/login" replace />
 };
 
 export default ProtectedRoute;

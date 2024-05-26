@@ -6,17 +6,20 @@ import { UserContext } from '../App';
 
 const Dashboard = () => {
     const { user } = useContext(UserContext);
-    const [token, setToken] = useState(null);
-    const navigate = useNavigate()
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-        if (token) {
-            setToken(token.split('=')[1]); 
-        } else {
+        const token = localStorage.getItem('token');
+        if (!token) {
             console.log("Token not found. Redirecting to login page");
-            navigate("/login");
+            return;
         }
+        setLoading(false)
     }, []);
+
+    if (loading) {
+        return <div>Loading...</div>; 
+    }
 
     if (!user) {
         return <Navigate to="/login" />;

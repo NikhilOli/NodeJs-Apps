@@ -33,7 +33,7 @@ const Register = () => {
             return;
         }
         try {
-            const res = await axios.post("http://localhost:3000/register", {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, {
                 name: user.name,
                 email: user.email,
                 password: user.password

@@ -32,12 +32,20 @@ const AddContact = () => {
       console.log('Please fill in all the fields.');
       return;
     }
-    
-    const res = await axios.post("http://localhost:3000/add-contact", {
+    const token = localStorage.getItem('token'); 
+        if (!token) {
+          console.log("Token not found. Redirecting to login page");
+          return;
+        }
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dashboard/add-contact`, {
       username: contactData.username,
       email: contactData.email,
       phone: contactData.phone,
       address: contactData.address
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}` 
+      }
     })
     if (res.status === 201) {
       toast.success('New Contact creation successful!', {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { toast } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,16 +27,16 @@ const EditContact = () => {
 
     axios.defaults.withCredentials = true
 
-    const {id} = useParams()
+    const { id } = useParams()
     useEffect(() => {
         const token = localStorage.getItem('token'); // Retrieve token from localStorage
         if (!token) {
-            res.status(401).json({message:"Token not found. Redirecting to login page"});
+            res.status(401).json({ message: "Token not found. Redirecting to login page" });
             return;
         }
-        axios.get(`http://localhost:3000/contacts/${id}`, {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/dashboard/contacts/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}` 
+                Authorization: `Bearer ${token}`
             }
         })
             .then((res) => {
@@ -62,12 +62,20 @@ const EditContact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const res = await axios.patch(`http://localhost:3000/dashboard/update-contact/${id}`, { 
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.log("Token not found. Redirecting to login page");
+            return;
+        }
+        const res = await axios.patch(`http://localhost:3000/dashboard/update-contact/${id}`, {
             username: contactData.username,
             email: contactData.email,
             phone: contactData.phone,
             address: contactData.address
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         if (res.status === 201) {
             toast.success('Contact updated successfully!', {

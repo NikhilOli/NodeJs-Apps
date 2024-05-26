@@ -9,17 +9,16 @@ const Profile = () => {
   axios.defaults.withCredentials = true
 
   useEffect(() => {
-    // Fetch the number of contacts created by the user
     const fetchContactCount = async () => {
       try {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const token = localStorage.getItem('token'); 
         if (!token) {
           console.log("Token not found. Redirecting to login page");
           return;
         }
-        const response = await axios.get('http://localhost:3000/dashboard/contacts', {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/dashboard/contacts`, {
           headers: {
-            Authorization: `Bearer ${token}` // Send token in authorization header
+            Authorization: `Bearer ${token}` 
           }
         });
         setContactCount(response.data.contactCount);
